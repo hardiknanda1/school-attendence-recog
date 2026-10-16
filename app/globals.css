@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+/* Matches PORTRAIT_QUERY in components/hero/hero-layout.ts. */
+@custom-variant hero-portrait (@media (max-aspect-ratio: 17/20));
+/* Short landscape screens (e.g. phones held sideways). */
+@custom-variant hero-short (@media (max-height: 540px) and (min-aspect-ratio: 17/20));
+
+/*
+ * Design tokens. Warm neutrals sampled from the school-lobby animation,
+ * charcoal/navy for text, and a restrained blue taken from the scanner beam.
+ */
+@theme {
+  --color-paper: #fbf8f3;
+  --color-cream: #f5eee3;
+  --color-sand: #ebe1d1;
+  --color-stone: #d9cfbf;
+  --color-line: #e3dacc;
+  --color-ink: #1d2026;
+  --color-navy: #15233a;
+  --color-muted: #575d6a;
+  --color-accent: #2c63c9;
+  --color-accent-deep: #1d4a9e;
+  --color-accent-soft: #e4ecf8;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display-serif), ui-serif, Georgia, serif;
+
+  --ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Anchored sections clear the fixed navigation bar. */
+  scroll-padding-top: 5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-accent-soft);
+  color: var(--color-navy);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/*
+ * Hero media placement. The canvas renderer (components/hero/hero-layout.ts)
+ * mirrors these rules so the static fallback image and the animated canvas
+ * frame always line up.
+ *  - Landscape: cover the viewport, anchored right so the scanner stays in view.
+ *  - Portrait: show the right ~two thirds of the frame, docked to the bottom,
+ *    leaving the top of the screen for the headline.
+ */
+.hero-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 85% 60%;
+}
+
+.hero-portrait-fade {
+  display: none;
+}
+
+@media (max-aspect-ratio: 17/20) {
+  .hero-media {
+    inset: auto 0 0 auto;
+    width: calc(100cqw / 0.54);
+    max-width: none;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: fill;
+  }
+
+  .hero-portrait-fade {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(100cqw / 0.54 * 9 / 16 - 16cqw);
+    height: 16cqw;
+    background: linear-gradient(to bottom, var(--color-cream), transparent);
+    pointer-events: none;
+  }
+}
+
+@keyframes scroll-cue {
+  0% {
+    transform: translateY(-100%);
+  }
+  60%,
+  100% {
+    transform: translateY(200%);
+  }
+}
