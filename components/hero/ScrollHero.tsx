@@ -293,7 +293,7 @@ function HeroMessage({
         index === 0 ? "motion-reduce:transform-none! motion-reduce:opacity-100!" : "motion-reduce:hidden"
       }`}
     >
-      <Heading className="hero-legible hero-headline font-display font-bold leading-[1.04] tracking-[-0.025em] text-white text-balance hero-portrait:text-paper">
+      <Heading className="hero-legible hero-headline font-display font-bold leading-[1.04] tracking-[-0.025em] text-black text-balance hero-portrait:text-paper">
         {headline}
       </Heading>
       <p className="hero-legible hero-lede mt-4 font-semibold leading-relaxed text-white text-pretty hero-portrait:mt-3 hero-short:mt-2">
