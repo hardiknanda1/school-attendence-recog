@@ -46,24 +46,27 @@ limiting (e.g. a WAF rule) as well.
 
 - **Frames**: `public/frames/frame-NNNN.webp`, produced from the supplied ZIP by
   `scripts/prepare-frames.py` (re-encoded to WebP at the original 1280×720;
-  composition is unchanged). The supplied export has no frames 60–65, 80–85 or
-  125–130. Those gaps were left unfilled, and playback cross-dissolves between
-  the neighbouring supplied frames. The playback order is in the generated
-  `lib/frame-manifest.ts`.
+  composition is unchanged). The supplied export (194 frames) has no frames
+  2, 6, 29, 67, 87, 97, 137, 141, 187 or 189. Those gaps were left unfilled,
+  and playback cross-dissolves between the neighbouring supplied frames. The
+  playback order is in the generated `lib/frame-manifest.ts`.
 - **To replace the frames**: extract the new ZIP into a folder, then run
   `python3 scripts/prepare-frames.py <folder>` (requires Pillow).
 - **Playback** (`components/hero/ScrollHero.tsx`): the hero is pinned for 350vh
   of scrolling. Scroll progress drives a smoothed playhead that draws into a
   canvas, so scrolling down plays forward and scrolling up reverses. The
-  sequence finishes at 90% of the pinned scroll, and the final empty-lobby
+  sequence finishes at 86% of the pinned scroll, and the final empty-lobby
   frame holds for the closing message.
 - **Loading** (`components/hero/frame-sequence.ts`): frames are fetched
   progressively with the opening and nearby frames first, plus evenly spaced
   keyframes. Only frames near the playhead stay decoded, which bounds memory.
-- **Layout** (`components/hero/hero-layout.ts` + `.hero-media` in
-  `app/globals.css`): landscape screens use a right-anchored cover crop that
-  keeps the scanner in view. Portrait screens use a dedicated crop of the right
-  of the frame, with the headline above it.
+- **Layout** (`components/hero/hero-layout.ts` + `.hero-geo` rules in
+  `app/globals.css`): the left ~42% of each frame is corridor and lockers, too
+  busy for text. On landscape screens the copy therefore sits on a solid cream
+  panel, and the frame is shown from where the plain wall begins (42%) to its
+  right edge, so the students and scanner are always in full view. Portrait
+  screens show the right of the frame docked to the bottom, with the copy
+  above it.
 - **Fallbacks**: the first frame is rendered as a static `<img>` underneath the
   canvas. It is what shows with `prefers-reduced-motion` (the hero then becomes
   a single static screen), if canvas is unavailable, or if frames fail to load.

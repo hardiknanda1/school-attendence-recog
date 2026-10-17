@@ -23,7 +23,7 @@ const POSTER_SRC = FRAME_URLS[0];
  * the first 90%; the remaining scroll holds the final empty-lobby frame so the
  * closing message can settle before the page continues.
  */
-const PLAY_END = 0.9;
+const PLAY_END = 0.86;
 const MESSAGE_SWITCH = [0.17, 0.82] as const;
 
 /** Playhead smoothing per 60 fps frame; lower is softer. */
@@ -197,7 +197,7 @@ export function ScrollHero() {
           height={FRAME_HEIGHT}
           fetchPriority="high"
           decoding="async"
-          className="hero-media select-none"
+          className="hero-geo hero-media select-none"
           onError={(e) => (e.currentTarget.style.visibility = "hidden")}
         />
         <canvas
@@ -208,27 +208,21 @@ export function ScrollHero() {
           }`}
         />
 
-        {/* Legibility scrims (separate from the canvas so the frames stay untouched). */}
+        {/* Solid copy panel (landscape), portrait edge blend and the closing fade. */}
+        <div className="hero-geo hero-panel" aria-hidden="true" />
         <div className="hero-portrait-fade" aria-hidden="true" />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-cream/60 to-transparent"
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 left-0 w-1/2 bg-[linear-gradient(to_right,rgb(245_238_227/0.9)_0%,rgb(245_238_227/0.78)_45%,rgb(245_238_227/0.35)_75%,transparent_100%)] hero-portrait:hidden"
-        />
         <motion.div
           aria-hidden="true"
           style={{ opacity: endFade }}
           className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-cream motion-reduce:hidden"
         />
 
-        {/* Hero copy — HTML, not canvas, so it stays crisp and accessible. */}
-        <div className="absolute inset-y-0 left-0 z-10 flex w-[44%] min-w-[19rem] max-w-[42rem] items-center pr-6 pl-[max(1.5rem,5vw)] hero-portrait:inset-x-0 hero-portrait:bottom-auto hero-portrait:w-full hero-portrait:max-w-none hero-portrait:min-w-0 hero-portrait:items-start hero-portrait:px-6 hero-portrait:pt-[calc(4.5rem+3svh)] hero-short:pt-16">
+        {/* Hero copy — HTML, not canvas, so it stays crisp and accessible.
+            Sits on the solid panel (see .hero-copy in globals.css). */}
+        <div className="hero-geo hero-copy z-10">
           <div className="w-full">
-            <p className="mb-5 flex items-center gap-3 text-[0.7rem] font-medium tracking-[0.22em] text-accent-deep uppercase hero-portrait:mb-3 hero-short:hidden">
-              <span className="h-px w-8 bg-accent/60" aria-hidden="true" />
+            <p className="mb-4 flex items-center gap-3 text-xs font-semibold tracking-[0.2em] text-accent-deep uppercase hero-portrait:mb-3 hero-short:hidden">
+              <span className="h-0.5 w-8 bg-accent-deep" aria-hidden="true" />
               Facial attendance for schools
             </p>
             <div className="grid">
@@ -242,16 +236,16 @@ export function ScrollHero() {
                 />
               ))}
             </div>
-            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 hero-portrait:mt-6 hero-short:mt-4">
+            <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 hero-portrait:mt-6 hero-short:mt-3">
               <Link
                 href="/contact"
-                className="inline-flex h-12 items-center rounded-full bg-navy px-6 text-sm font-medium text-paper shadow-[0_8px_24px_-12px_rgba(21,35,58,0.6)] transition-colors hover:bg-ink"
+                className="inline-flex h-12 items-center rounded-full bg-navy px-6 text-sm font-semibold text-paper hero-short:h-10 shadow-[0_8px_24px_-12px_rgba(21,35,58,0.6)] transition-colors hover:bg-ink"
               >
                 Get in Touch
               </Link>
               <a
                 href="#how-it-works"
-                className="group inline-flex h-12 items-center gap-2 text-sm font-medium text-navy underline-offset-4 hover:underline"
+                className="group inline-flex h-12 items-center gap-2 text-sm font-semibold text-navy hero-short:h-10 underline-offset-4 hover:underline"
               >
                 Discover How It Works
                 <span aria-hidden="true" className="transition-transform group-hover:translate-y-0.5">
@@ -265,7 +259,7 @@ export function ScrollHero() {
         <motion.div
           aria-hidden="true"
           style={{ opacity: hintOpacity }}
-          className="pointer-events-none absolute bottom-8 left-[max(1.5rem,5vw)] z-10 flex items-center gap-3 text-[0.7rem] tracking-[0.2em] text-muted uppercase motion-reduce:hidden hero-portrait:hidden hero-short:hidden"
+          className="pointer-events-none absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 items-center gap-3 text-[0.7rem] font-semibold tracking-[0.2em] text-navy uppercase motion-reduce:hidden hero-portrait:hidden hero-short:hidden"
         >
           <span className="relative block h-10 w-px overflow-hidden bg-ink/15">
             <span className="absolute inset-x-0 top-0 h-1/2 animate-[scroll-cue_2.2s_ease-in-out_infinite] bg-navy" />
@@ -310,10 +304,10 @@ function HeroMessage({
         index === 0 ? "motion-reduce:transform-none! motion-reduce:opacity-100!" : "motion-reduce:hidden"
       }`}
     >
-      <Heading className="font-display text-[clamp(2.4rem,min(4.8vw,9svh),5.75rem)] leading-[1.02] tracking-[-0.015em] text-navy text-balance hero-portrait:text-[clamp(2.2rem,9.5vw,3.6rem)]">
+      <Heading className="hero-headline font-display font-bold leading-[1.04] tracking-[-0.025em] text-navy text-balance">
         {headline}
       </Heading>
-      <p className="mt-5 max-w-[26rem] text-[clamp(1rem,1.3vw,1.2rem)] leading-relaxed text-ink/85 text-pretty hero-portrait:mt-3 hero-short:mt-2 hero-short:text-sm">
+      <p className="hero-lede mt-4 font-medium leading-relaxed text-navy text-pretty hero-portrait:mt-3 hero-short:mt-2">
         {copy}
       </p>
     </motion.div>

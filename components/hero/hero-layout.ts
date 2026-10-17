@@ -8,8 +8,15 @@ export const PORTRAIT_QUERY = "(max-aspect-ratio: 17/20)";
 
 /** Fraction of the frame width visible in portrait (the right-hand part, with the scanner). */
 const PORTRAIT_VISIBLE = 0.54;
-/** Cover alignment in landscape: favour the right so the scanner never crops out. */
-const ALIGN_X = 0.85;
+/**
+ * Landscape: the frame is shown from CROP_START (where the plain lobby wall
+ * begins; everything left of it is corridor and lockers) to its right edge,
+ * beside a solid text panel. The visible crop takes 60–64% of the stage width
+ * and covers the full height where the aspect ratio allows.
+ */
+const CROP_START = 0.42;
+const CROP_MIN_SHARE = 0.6;
+const CROP_MAX_SHARE = 0.64;
 const ALIGN_Y = 0.6;
 
 export type Rect = { x: number; y: number; w: number; h: number };
@@ -26,8 +33,13 @@ export function mediaRect(
     const h = (w * imageH) / imageW;
     return { x: stageW - w, y: stageH - h, w, h };
   }
-  const scale = Math.max(stageW / imageW, stageH / imageH);
-  const w = imageW * scale;
-  const h = imageH * scale;
-  return { x: (stageW - w) * ALIGN_X, y: (stageH - h) * ALIGN_Y, w, h };
+  const visible = 1 - CROP_START;
+  const w = Math.max(
+    Math.min((stageH * imageW) / imageH, (stageW * CROP_MAX_SHARE) / visible),
+    (stageW * CROP_MIN_SHARE) / visible,
+  );
+  const h = (w * imageH) / imageW;
+  // Shorter than the stage (squarer screens): sit on the floor line, faded in at the top.
+  const gap = stageH - h;
+  return { x: stageW - w, y: Math.max(gap, gap * ALIGN_Y), w, h };
 }

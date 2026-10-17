@@ -63,34 +63,117 @@ body {
 }
 
 /*
- * Hero media placement. The canvas renderer (components/hero/hero-layout.ts)
- * mirrors these rules so the static fallback image and the animated canvas
- * frame always line up.
- *  - Landscape: cover the viewport, anchored right so the scanner stays in view.
- *  - Portrait: show the right ~two thirds of the frame, docked to the bottom,
- *    leaving the top of the screen for the headline.
+ * Hero geometry. The canvas renderer (components/hero/hero-layout.ts) mirrors
+ * these rules so the static fallback image and the animated frame line up.
+ *  - Landscape: the frame from 42% of its width (where the plain wall begins)
+ *    to its right edge fills 60–64% of the stage; a solid panel on the left
+ *    holds the copy.
+ *  - Portrait: the right part of the frame is docked to the bottom, with the
+ *    copy above it.
+ * --draw-w is the rendered width of the whole frame; --gap is the stage height
+ * left over (positive on squarer screens, negative when cropped vertically).
  */
+.hero-geo {
+  --draw-w: max(min(100svh * 16 / 9, 100cqw * 0.64 / 0.58), 100cqw * 0.6 / 0.58);
+  --gap: calc(100svh - var(--draw-w) * 9 / 16);
+  --panel-w: calc(100cqw - var(--draw-w) * 0.58);
+}
+
 .hero-media {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 85% 60%;
+  right: 0;
+  top: max(var(--gap), var(--gap) * 0.6);
+  width: var(--draw-w);
+  max-width: none;
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+
+/* Solid panel behind the copy; blends into the photo only at its right edge. */
+.hero-panel {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--panel-w);
+  background: var(--color-cream);
+  pointer-events: none;
+}
+
+.hero-panel::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 100%;
+  width: calc(var(--draw-w) * 0.09);
+  background: linear-gradient(to right, var(--color-cream), rgb(245 238 227 / 0));
+}
+
+/* On squarer screens the frame is shorter than the stage: soften its top edge. */
+.hero-panel::before {
+  content: "";
+  position: absolute;
+  left: 100%;
+  width: calc(100cqw - var(--panel-w));
+  top: max(var(--gap), 0px);
+  height: clamp(0px, var(--gap) * 0.7, 8rem);
+  background: linear-gradient(to bottom, var(--color-cream), rgb(245 238 227 / 0));
 }
 
 .hero-portrait-fade {
   display: none;
 }
 
+.hero-copy {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: var(--panel-w);
+  padding: 0 2rem 0 max(1.5rem, 5vw);
+  display: flex;
+  align-items: center;
+}
+
+.hero-headline {
+  font-size: clamp(1.75rem, min(calc(var(--panel-w) * 0.1), 8.5svh), 5rem);
+}
+
+.hero-lede {
+  font-size: clamp(0.95rem, calc(var(--panel-w) * 0.033), 1.2rem);
+}
+
+@media (max-height: 540px) and (min-aspect-ratio: 17/20) {
+  .hero-copy {
+    top: 4rem;
+  }
+}
+
 @media (max-aspect-ratio: 17/20) {
   .hero-media {
-    inset: auto 0 0 auto;
+    top: auto;
+    bottom: 0;
     width: calc(100cqw / 0.54);
-    max-width: none;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    object-fit: fill;
+  }
+
+  .hero-panel {
+    display: none;
+  }
+
+  .hero-copy {
+    left: 0;
+    right: 0;
+    bottom: auto;
+    width: auto;
+    align-items: flex-start;
+    padding: calc(4.5rem + 3svh) 1.5rem 0;
+  }
+
+  .hero-headline {
+    font-size: clamp(2.2rem, 9.5vw, 3.6rem);
+  }
+
+  .hero-lede {
+    font-size: 1rem;
   }
 
   .hero-portrait-fade {

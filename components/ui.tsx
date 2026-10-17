@@ -16,4 +16,4 @@ export function Eyebrow({ children, tone = "light" }: { children: ReactNode; ton
 }
 
 export const displayHeading =
-  "font-display text-[clamp(2.4rem,5vw,4.25rem)] leading-[1.04] tracking-[-0.015em] text-balance";
+  "font-display font-medium text-[clamp(2.3rem,4.8vw,4rem)] leading-[1.06] tracking-[-0.02em] text-balance";

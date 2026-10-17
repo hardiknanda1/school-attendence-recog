@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Instrument_Serif } from "next/font/google";
+import { Geist, Newsreader } from "next/font/google";
 import { Providers } from "@/components/Providers";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -11,10 +11,12 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const displaySerif = Instrument_Serif({
+// Variable serif with a full weight range, so headlines can be set heavier
+// where they sit over imagery (the hero) and lighter elsewhere.
+const displaySerif = Newsreader({
   variable: "--font-display-serif",
-  weight: "400",
   subsets: ["latin"],
+  axes: ["opsz"],
 });
 
 export const metadata: Metadata = {
