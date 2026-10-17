@@ -208,10 +208,13 @@ export function ScrollHero() {
         />
 
         {/* Hero copy — HTML, not canvas, so it stays crisp and accessible. */}
+        {/* Very subtle charcoal wash behind the copy (see .hero-scrim in globals.css). */}
+        <div className="hero-scrim" aria-hidden="true" />
+
         <div className="hero-copy z-10">
           <div className="w-full">
-            <p className="hero-legible mb-4 flex items-center gap-3 text-xs font-semibold tracking-[0.2em] text-orange uppercase hero-portrait:mb-3 hero-portrait:text-accent-deep hero-short:hidden">
-              <span className="h-0.5 w-8 bg-white hero-portrait:bg-accent-deep" aria-hidden="true" />
+            <p className="hero-legible mb-4 flex items-center gap-3 text-xs font-semibold tracking-[0.2em] text-white uppercase hero-portrait:mb-3 hero-short:hidden">
+              <span className="h-0.5 w-8 bg-white" aria-hidden="true" />
               Facial attendance for schools
             </p>
             <div className="grid">
@@ -234,7 +237,7 @@ export function ScrollHero() {
               </Link>
               <a
                 href="#how-it-works"
-                className="hero-legible group inline-flex h-12 items-center gap-2 text-sm font-semibold text-white hero-short:h-10 underline-offset-4 hover:underline hero-portrait:text-navy"
+                className="hero-legible group inline-flex h-12 items-center gap-2 text-sm font-semibold text-white hero-short:h-10 underline-offset-4 hover:underline"
               >
                 Discover How It Works
                 <span aria-hidden="true" className="transition-transform group-hover:translate-y-0.5">
@@ -293,7 +296,7 @@ function HeroMessage({
         index === 0 ? "motion-reduce:transform-none! motion-reduce:opacity-100!" : "motion-reduce:hidden"
       }`}
     >
-      <Heading className="hero-legible hero-headline font-display font-bold leading-[1.04] tracking-[-0.025em] text-white text-balance hero-portrait:text-paper">
+      <Heading className="hero-legible hero-headline font-display font-bold leading-[1.04] tracking-[-0.025em] text-white text-balance">
         {headline}
       </Heading>
       <p className="hero-legible hero-lede mt-4 font-semibold leading-relaxed text-white text-pretty hero-portrait:mt-3 hero-short:mt-2">

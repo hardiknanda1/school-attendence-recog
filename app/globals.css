@@ -102,6 +102,23 @@ body {
     0 2px 16px rgb(21 35 58 / 0.45);
 }
 
+/*
+ * Very subtle charcoal wash behind the hero copy: an oval centred on the text
+ * block that fades out well before the students. Raise the alpha values to
+ * strengthen it.
+ */
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 42% 50% at 32% 50%,
+    rgb(29 32 38 / 0.34) 0%,
+    rgb(29 32 38 / 0.24) 55%,
+    rgb(29 32 38 / 0) 100%
+  );
+}
+
 .hero-headline {
   font-size: clamp(2.4rem, min(4.6vw, 8.5svh), 5.25rem);
 }
@@ -136,9 +153,18 @@ body {
     padding: calc(4.5rem + 3svh) 1.5rem 0;
   }
 
-  /* Portrait copy sits on the plain stage background, above the frame. */
-  .hero-copy .hero-legible {
-    text-shadow: none;
+  /*
+   * Portrait copy sits above the frame on the plain cream background, so the
+   * charcoal wash has to be stronger there for white text to read.
+   */
+  .hero-scrim {
+    top: 4rem; /* start below the navigation bar */
+    background: linear-gradient(
+      to bottom,
+      rgb(29 32 38 / 0.78) 0%,
+      rgb(29 32 38 / 0.7) 45%,
+      rgb(29 32 38 / 0) 62%
+    );
   }
 
   .hero-headline {
