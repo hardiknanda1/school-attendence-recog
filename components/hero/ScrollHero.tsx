@@ -64,7 +64,6 @@ export function ScrollHero() {
   });
 
   const hintOpacity = useTransform(scrollYProgress, [0, 0.04], [1, 0]);
-  const endFade = useTransform(scrollYProgress, [0.94, 1], [0, 1]);
 
   // Canvas renderer: scroll progress → smoothed playhead → drawn frame.
   useEffect(() => {
@@ -197,7 +196,7 @@ export function ScrollHero() {
           height={FRAME_HEIGHT}
           fetchPriority="high"
           decoding="async"
-          className="hero-geo hero-media select-none"
+          className="hero-media select-none"
           onError={(e) => (e.currentTarget.style.visibility = "hidden")}
         />
         <canvas
@@ -208,20 +207,10 @@ export function ScrollHero() {
           }`}
         />
 
-        {/* Solid copy panel (landscape), portrait edge blend and the closing fade. */}
-        <div className="hero-geo hero-panel" aria-hidden="true" />
-        <div className="hero-portrait-fade" aria-hidden="true" />
-        <motion.div
-          aria-hidden="true"
-          style={{ opacity: endFade }}
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-cream motion-reduce:hidden"
-        />
-
-        {/* Hero copy — HTML, not canvas, so it stays crisp and accessible.
-            Sits on the solid panel (see .hero-copy in globals.css). */}
-        <div className="hero-geo hero-copy z-10">
+        {/* Hero copy — HTML, not canvas, so it stays crisp and accessible. */}
+        <div className="hero-copy z-10">
           <div className="w-full">
-            <p className="mb-4 flex items-center gap-3 text-xs font-semibold tracking-[0.2em] text-accent-deep uppercase hero-portrait:mb-3 hero-short:hidden">
+            <p className="hero-legible mb-4 flex items-center gap-3 text-xs font-semibold tracking-[0.2em] text-accent-deep uppercase hero-portrait:mb-3 hero-short:hidden">
               <span className="h-0.5 w-8 bg-accent-deep" aria-hidden="true" />
               Facial attendance for schools
             </p>
@@ -245,7 +234,7 @@ export function ScrollHero() {
               </Link>
               <a
                 href="#how-it-works"
-                className="group inline-flex h-12 items-center gap-2 text-sm font-semibold text-navy hero-short:h-10 underline-offset-4 hover:underline"
+                className="hero-legible group inline-flex h-12 items-center gap-2 text-sm font-semibold text-navy hero-short:h-10 underline-offset-4 hover:underline"
               >
                 Discover How It Works
                 <span aria-hidden="true" className="transition-transform group-hover:translate-y-0.5">
@@ -304,10 +293,10 @@ function HeroMessage({
         index === 0 ? "motion-reduce:transform-none! motion-reduce:opacity-100!" : "motion-reduce:hidden"
       }`}
     >
-      <Heading className="hero-headline font-display font-bold leading-[1.04] tracking-[-0.025em] text-navy text-balance">
+      <Heading className="hero-legible hero-headline font-display font-bold leading-[1.04] tracking-[-0.025em] text-navy text-balance">
         {headline}
       </Heading>
-      <p className="hero-lede mt-4 font-medium leading-relaxed text-navy text-pretty hero-portrait:mt-3 hero-short:mt-2">
+      <p className="hero-legible hero-lede mt-4 font-semibold leading-relaxed text-navy text-pretty hero-portrait:mt-3 hero-short:mt-2">
         {copy}
       </p>
     </motion.div>

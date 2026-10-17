@@ -60,13 +60,12 @@ limiting (e.g. a WAF rule) as well.
 - **Loading** (`components/hero/frame-sequence.ts`): frames are fetched
   progressively with the opening and nearby frames first, plus evenly spaced
   keyframes. Only frames near the playhead stay decoded, which bounds memory.
-- **Layout** (`components/hero/hero-layout.ts` + `.hero-geo` rules in
-  `app/globals.css`): the left ~42% of each frame is corridor and lockers, too
-  busy for text. On landscape screens the copy therefore sits on a solid cream
-  panel, and the frame is shown from where the plain wall begins (42%) to its
-  right edge, so the students and scanner are always in full view. Portrait
-  screens show the right of the frame docked to the bottom, with the copy
-  above it.
+- **Layout** (`components/hero/hero-layout.ts` + `.hero-media` in
+  `app/globals.css`): landscape screens show the full frame edge to edge,
+  anchored right so the scanner stays in view. The copy sits directly on the
+  frame with no overlay, set bold with a tight text shadow for legibility.
+  Portrait screens show the right of the frame docked to the bottom, with the
+  copy above it.
 - **Fallbacks**: the first frame is rendered as a static `<img>` underneath the
   canvas. It is what shows with `prefers-reduced-motion` (the hero then becomes
   a single static screen), if canvas is unavailable, or if frames fail to load.
