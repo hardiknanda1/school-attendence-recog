@@ -210,7 +210,7 @@ export function ScrollHero() {
         {/* Hero copy — HTML, not canvas, so it stays crisp and accessible. */}
         <div className="hero-copy z-10">
           <div className="w-full">
-            <p className="hero-legible mb-4 flex items-center gap-3 text-xs font-semibold tracking-[0.2em] text-black uppercase hero-portrait:mb-3 hero-portrait:text-accent-deep hero-short:hidden">
+            <p className="hero-legible mb-4 flex items-center gap-3 text-xs font-semibold tracking-[0.2em] text-orange uppercase hero-portrait:mb-3 hero-portrait:text-accent-deep hero-short:hidden">
               <span className="h-0.5 w-8 bg-white hero-portrait:bg-accent-deep" aria-hidden="true" />
               Facial attendance for schools
             </p>
