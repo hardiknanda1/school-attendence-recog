@@ -210,8 +210,8 @@ export function ScrollHero() {
         {/* Hero copy — HTML, not canvas, so it stays crisp and accessible. */}
         <div className="hero-copy z-10">
           <div className="w-full">
-            <p className="hero-legible mb-4 flex items-center gap-3 text-xs font-semibold tracking-[0.2em] text-accent-deep uppercase hero-portrait:mb-3 hero-short:hidden">
-              <span className="h-0.5 w-8 bg-accent-deep" aria-hidden="true" />
+            <p className="hero-legible mb-4 flex items-center gap-3 text-xs font-semibold tracking-[0.2em] text-white uppercase hero-portrait:mb-3 hero-portrait:text-accent-deep hero-short:hidden">
+              <span className="h-0.5 w-8 bg-white hero-portrait:bg-accent-deep" aria-hidden="true" />
               Facial attendance for schools
             </p>
             <div className="grid">
@@ -228,13 +228,13 @@ export function ScrollHero() {
             <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 hero-portrait:mt-6 hero-short:mt-3">
               <Link
                 href="/contact"
-                className="inline-flex h-12 items-center rounded-full bg-navy px-6 text-sm font-semibold text-paper hero-short:h-10 shadow-[0_8px_24px_-12px_rgba(21,35,58,0.6)] transition-colors hover:bg-ink"
+                className="inline-flex h-12 items-center rounded-full bg-navy px-6 text-sm font-semibold text-white hero-short:h-10 shadow-[0_8px_24px_-12px_rgba(21,35,58,0.6)] transition-colors hover:bg-ink"
               >
                 Get in Touch
               </Link>
               <a
                 href="#how-it-works"
-                className="hero-legible group inline-flex h-12 items-center gap-2 text-sm font-semibold text-navy hero-short:h-10 underline-offset-4 hover:underline"
+                className="hero-legible group inline-flex h-12 items-center gap-2 text-sm font-semibold text-white hero-short:h-10 underline-offset-4 hover:underline hero-portrait:text-navy"
               >
                 Discover How It Works
                 <span aria-hidden="true" className="transition-transform group-hover:translate-y-0.5">
@@ -296,7 +296,7 @@ function HeroMessage({
       <Heading className="hero-legible hero-headline font-display font-bold leading-[1.04] tracking-[-0.025em] text-white text-balance hero-portrait:text-navy">
         {headline}
       </Heading>
-      <p className="hero-legible hero-lede mt-4 font-semibold leading-relaxed text-navy text-pretty hero-portrait:mt-3 hero-short:mt-2">
+      <p className="hero-legible hero-lede mt-4 font-semibold leading-relaxed text-white text-pretty hero-portrait:mt-3 hero-portrait:text-navy hero-short:mt-2">
         {copy}
       </p>
     </motion.div>
