@@ -84,7 +84,7 @@ body {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0;
+  left: 10%;
   width: min(44%, 42rem);
   min-width: 19rem;
   padding: 0 1.5rem 0 max(1.5rem, 5vw);
@@ -101,6 +101,13 @@ body {
     0 0 1px rgb(255 250 243 / 0.9),
     0 1px 2px rgb(255 250 243 / 0.85),
     0 0 14px rgb(255 250 243 / 0.55);
+}
+
+/* The white headline gets a soft dark glow instead, so it reads on the bright wall. */
+.hero-copy .hero-headline.hero-legible {
+  text-shadow:
+    0 1px 2px rgb(21 35 58 / 0.55),
+    0 2px 18px rgb(21 35 58 / 0.45);
 }
 
 .hero-headline {
@@ -128,6 +135,7 @@ body {
   }
 
   .hero-copy {
+    left: 0;
     right: 0;
     bottom: auto;
     width: auto;
@@ -137,7 +145,8 @@ body {
   }
 
   /* Portrait copy sits on the plain stage background, above the frame. */
-  .hero-copy .hero-legible {
+  .hero-copy .hero-legible,
+  .hero-copy .hero-headline.hero-legible {
     text-shadow: none;
   }
 
