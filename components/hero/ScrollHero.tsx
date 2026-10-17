@@ -296,7 +296,7 @@ function HeroMessage({
       <Heading className="hero-legible hero-headline font-display font-bold leading-[1.04] tracking-[-0.025em] text-white text-balance hero-portrait:text-paper">
         {headline}
       </Heading>
-      <p className="hero-legible hero-lede mt-4 font-semibold leading-relaxed text-navy text-pretty hero-portrait:mt-3 hero-short:mt-2">
+      <p className="hero-legible hero-lede mt-4 font-semibold leading-relaxed text-white text-pretty hero-portrait:mt-3 hero-short:mt-2">
         {copy}
       </p>
     </motion.div>
